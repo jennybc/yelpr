@@ -1,0 +1,63 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# ryelp
+
+The goal of ryelp is to ... *MAYBE CALL [YELP FUSION API V3](https://www.yelp.ca/developers)*? In the meantime, check out the brute force example below. Created just to get a STAT 545 student unstuck.
+
+## Installation
+
+You can install ryelp from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("jennybc/ryelp")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+## basic example code
+```
+
+## Brute force
+
+Example of working with [Yelp Fusion API](https://www.yelp.ca/developers) from first principles (vs really exploiting [httr](https://github.com/hadley/httr)).
+
+```{r}
+library(httr)
+library(purrr)
+
+res <- POST("https://api.yelp.com/oauth2/token",
+            body = list(grant_type = "client_credentials",
+                        client_id = Sys.getenv("YELP_ID"),
+                        client_secret = Sys.getenv("YELP_SECRET")))
+token <- content(res)$access_token
+
+yelp <- "https://api.yelp.com"
+term <- "coffee"
+location <- "Vancouver, BC"
+limit <- 3
+(url <-
+    modify_url(yelp, path = c("v3", "businesses", "search"),
+               query = list(term = term, location = location, limit = limit)))
+res <- GET(url, add_headers('Authorization' = paste("bearer", token)))
+http_status(res)
+ct <- content(res)
+ct$businesses %>% 
+  map_df(`[`, c("name", "phone"))
+```
+
