@@ -3,7 +3,7 @@
 ryelp
 =====
 
-The goal of ryelp is to ... *MAYBE CALL [YELP FUSION API V3](https://www.yelp.ca/developers)*? In the meantime, check out the brute force example below. Created just to get a STAT 545 student unstuck.
+The goal of ryelp is to ... *MAYBE CALL [YELP FUSION API V3](https://www.yelp.ca/developers) ONE DAY*? In the meantime, check out the brute force example below. This repo created just to get a STAT 545 student unstuck and then I got intrigued.
 
 Installation
 ------------
@@ -67,3 +67,8 @@ ct$businesses %>%
 #> 2 Timbertrain Coffee Roasters +16049159188
 #> 3        49th Parallel Coffee +16048724901
 ```
+
+The httr way
+------------
+
+See [httr.R](https://github.com/jennybc/yelpr/blob/master/httr.R).
